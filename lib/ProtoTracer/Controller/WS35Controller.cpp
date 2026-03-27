@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "WS35Controller.h"
 
 DMAMEM int dmaDisplayMemory[346 * 6];
@@ -60,3 +62,5 @@ void WS35Controller::SetAccentBrightness(uint8_t maxAccentBrightness){
         this->accentBrightness = maxAccentBrightness * 25 + 5;
     }
 }
+
+#endif // ARDUINO_ARCH_ESP32

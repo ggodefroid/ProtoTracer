@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "MicrophoneFourier_DMA.h"
 
 ADC* adc = new ADC();
@@ -395,3 +397,5 @@ void MicrophoneFourier::UpdateDMA() {
         threshold = threshold > 0.2f ? (threshold * 5.0f > 1.0f ? 1.0f : threshold * 5.0f) : 0.0f;
     }
 }
+
+#endif // ARDUINO_ARCH_ESP32

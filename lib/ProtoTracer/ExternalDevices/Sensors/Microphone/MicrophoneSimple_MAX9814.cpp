@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "MicrophoneSimple_MAX9814.h"
 
 MicrophoneSimple::MicrophoneSimple() {
@@ -54,3 +56,5 @@ float MicrophoneSimple::Update(float read) {
 
     return currentValue;
 }
+
+#endif // ARDUINO_ARCH_ESP32

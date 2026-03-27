@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "SerialSync.h"
 
 SerialTransfer SerialSync::dataTransfer;
@@ -140,3 +142,5 @@ void SerialSync::SetBoop(bool boop) {
 bool SerialSync::GetBoop() {
     return data.boop;
 }
+
+#endif // ARDUINO_ARCH_ESP32

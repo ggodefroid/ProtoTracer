@@ -12,9 +12,11 @@ void Controller::UpdateBrightness() {
         previousTime = micros();
     }
 
-    if (!isOn && micros() < softStart + previousTime) {
-        brightness = Mathematics::Map(micros(), previousTime, softStart + previousTime, uint32_t(0), uint32_t(maxBrightness));
-        accentBrightness = Mathematics::Map(micros(), previousTime, softStart + previousTime, uint32_t(0), uint32_t(maxAccentBrightness));
+    if (!isOn && (uint32_t)micros() < softStart + previousTime) {
+        uint32_t now = (uint32_t)micros();
+        uint32_t end = softStart + previousTime;
+        brightness = Mathematics::Map(now, previousTime, end, uint32_t(0), uint32_t(maxBrightness));
+        accentBrightness = Mathematics::Map(now, previousTime, end, uint32_t(0), uint32_t(maxAccentBrightness));
     } else if (!isOn) {
         brightness = maxBrightness;
         accentBrightness = maxAccentBrightness;

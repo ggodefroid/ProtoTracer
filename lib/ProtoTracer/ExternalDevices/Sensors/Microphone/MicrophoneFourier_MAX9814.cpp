@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "MicrophoneFourier_MAX9814.h"
 
 IntervalTimer MicrophoneFourier::sampleTimer;
@@ -89,3 +91,5 @@ void MicrophoneFourier::Update() {
     Reset();
     StartSampler();
 }
+
+#endif // ARDUINO_ARCH_ESP32

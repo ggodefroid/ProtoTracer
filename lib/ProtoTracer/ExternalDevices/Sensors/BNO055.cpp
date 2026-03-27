@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "BNO055.h"
 
 BNO055::BNO055() {
@@ -84,3 +86,5 @@ Vector3D BNO055::GetLocalAngularVelocity() {
 Quaternion BNO055::GetAbsoluteOrientation() {
     return absoluteOrientation;
 }
+
+#endif // ARDUINO_ARCH_ESP32

@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "MMC56X3.h"
 
 Adafruit_MMC5603 MMC56X3::mag;
@@ -73,3 +75,5 @@ Vector3D MMC56X3::EstimateMagnetPosition() {
 
     return position;
 }
+
+#endif // ARDUINO_ARCH_ESP32

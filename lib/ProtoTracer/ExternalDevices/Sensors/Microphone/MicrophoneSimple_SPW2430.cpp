@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "MicrophoneSimple_SPW2430.h"
 
 MicrophoneSimple::MicrophoneSimple(uint8_t pin) {
@@ -26,3 +28,5 @@ float MicrophoneSimple::Update() {
 
     return Mathematics::Constrain(truncate, 0.0f, 1.0f);
 }
+
+#endif // ARDUINO_ARCH_ESP32

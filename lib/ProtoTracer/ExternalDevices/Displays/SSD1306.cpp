@@ -233,7 +233,9 @@ void HeadsUpDisplay::Initialize() {
     Wire.setClock(100000);//for longer range transmissions
     Wire.begin();
     
-    #ifdef WS35
+    #ifdef ARDUINO_ARCH_ESP32
+    Wire.begin(SDA, SCL);
+    #elif defined(WS35)
     Wire.setSDA(19);
     Wire.setSCL(18);
     #else

@@ -11,25 +11,26 @@
 
 #include <Arduino.h>
 
-extern unsigned long _heap_start; ///< Start of the heap memory (defined externally).
-extern unsigned long _heap_end; ///< End of the heap memory (defined externally).
-extern char *__brkval; ///< Current break value indicating the end of the heap (defined externally).
+#ifdef ARDUINO_ARCH_ESP32
 
-/**
- * @class Debug
- * @brief Provides debugging utilities for memory analysis.
- */
 class Debug {
 public:
-    /**
-     * @brief Calculates the available free memory in the system.
-     * 
-     * This function calculates the difference between the end of the heap
-     * and the current break value, returning the result in kilobytes.
-     * 
-     * @return The available free memory in kilobytes as a float.
-     */
+    static float FreeMem() {
+        return float(ESP.getFreeHeap()) / 1000.0f;
+    }
+};
+
+#else
+
+extern unsigned long _heap_start;
+extern unsigned long _heap_end;
+extern char *__brkval;
+
+class Debug {
+public:
     static float FreeMem() {
         return float((char *)&_heap_end - __brkval) / 1000.0f;
     }
 };
+
+#endif

@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "APA102Controller.h"
 
 //Macro calls from SmartMatrix library included in SmartMatrixAPA102
@@ -47,3 +49,5 @@ void APA102Controller::SetAccentBrightness(uint8_t maxAccentBrightness){
         this->accentBrightness = maxAccentBrightness * 12 + 5;
     }
 }
+
+#endif // ARDUINO_ARCH_ESP32

@@ -1,3 +1,5 @@
+#ifndef ARDUINO_ARCH_ESP32
+
 #include "SerialInterpreter.h"
 
 Quaternion SerialInterpreter::baseRotation;
@@ -48,3 +50,5 @@ void SerialInterpreter::Update() {
         // Serial.print("\t");
     }
 }
+
+#endif // ARDUINO_ARCH_ESP32
