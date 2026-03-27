@@ -10,6 +10,12 @@ ProtoTracer supports:
 - **64x32 HUB75 panels**
 - **Custom panel designs based on WS2812B LEDs - WS35 Boards**
 
+## Experimental: Adafruit Matrix Portal S3 (ESP32-S3)
+
+This fork includes an **experimental** build target for the [Adafruit Matrix Portal S3](https://www.adafruit.com/product/5778) with **two 64×32 HUB75 panels** chained on the onboard HUB75 connector (`env:matrixportal_s3` in `platformio.ini`). It was added as a **hardware bring-up test** using the ESP32-HUB75-MatrixPanel-DMA driver.
+
+The test was **conclusive** (display, menu, microphone path, and firmware stability were verified) but **disappointing for real-time use**: the main Protogen face animation was observed at about **15 FPS** with a full red material, with software ray-tracing dominating frame time. For a responsive Protogen face, **a Teensy 4.0 or 4.1 remains the recommended platform**; treat the Matrix Portal S3 port as a curiosity or starting point, not a drop-in performance match for the Teensy builds.
+
 ## Important Note
 This project is complex and requires prior experience with microcontroller projects. If you're new to microcontrollers or seeking an easier solution, consider alternatives like:
 - **Huidu WF-1**
@@ -35,7 +41,7 @@ This project is complex and requires prior experience with microcontroller proje
 - **No**, ProtoTracer is not designed to run on a Raspberry Pi, but could be ported.
 
 ## Will this project work on an ESP32?
-- **No**, ProtoTracer is not compatible with the ESP32, but could be ported.
+- **Only experimentally in this fork**: an Adafruit Matrix Portal S3 + dual HUB75 configuration is supported as a PlatformIO environment for testing. Performance is far below the Teensy 4.x builds (on the order of **~15 FPS** for the default face in testing). For a practical build, use **Teensy 4.0 / 4.1**. Upstream ProtoTracer targets Teensy only unless you maintain your own port.
 
 ## Will this project work on an Arduino Nano/Uno/Mega?
 - **No**, ProtoTracer cannot practically run on these platforms due to hardware limitations.
@@ -50,7 +56,8 @@ Here’s an example showcasing ProtoTracer's capabilities, demonstrating live re
 
 # Recommended Platform Requirements
 
-- **Microcontroller:** Teensy 4.0 or Teensy 4.1
+- **Microcontroller (recommended):** Teensy 4.0 or Teensy 4.1
+- **Microcontroller (experimental, this fork only):** Adafruit Matrix Portal S3 — supported for development and testing; **not recommended** if you care about frame rate versus the Teensy reference.
 - **Panels:** Two 64x32 HUB75 panels or WS35 LED boards
 - **Shield:** SmartMatrix V4 LED Shield, OctoWS2811 board, or ProtoController V2 (coming soon)
 
