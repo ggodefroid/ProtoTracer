@@ -34,6 +34,8 @@
 #include "../NeoTrellisMenuHandler.h"
 #elif defined MORSEBUTTON
 #include "../SingleButtonMorseHandler.h"
+#elif defined(ARDUINO_ARCH_ESP32)
+#include "../SingleButtonMenuHandler_ESP32.h"
 #else
 #include "../SingleButtonMenuHandler.h"
 #endif

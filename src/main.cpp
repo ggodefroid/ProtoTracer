@@ -9,6 +9,7 @@
  * - PROJECT_PROTOGEN_HUB75
  * - PROJECT_PROTOGEN_WS35
  * - PROJECT_PROTOGEN_BETA
+ * - PROJECT_PROTOGEN_MATRIXPORTAL_S3
  * - PROJECT_VERIFY_ENGINE
  * - PROJECT_VERIFY_HARDWARE
  *
@@ -31,6 +32,10 @@
     #include "Examples/Protogen/BetaProject.h"
     BetaProject project; ///< Instance of the Beta project.
 
+#elif defined(PROJECT_PROTOGEN_MATRIXPORTAL_S3)
+    #include "Examples/Protogen/ProtogenMatrixPortalS3Project.h"
+    ProtogenMatrixPortalS3Project project;
+
 #elif defined(PROJECT_VERIFY_ENGINE)
     #include "Examples/VerifyEngine.h"
     VerifyEngine project; ///< Instance of the Verify Engine project.
@@ -47,12 +52,19 @@
  * If PROJECT_VERIFY_HARDWARE is defined, runs continuous hardware testing.
  */
 void setup() {
-    Serial.begin(115200); ///< Initializes the serial port for debugging.
-    Serial.println("\nStarting...");
+    Serial.begin(115200);
+#ifdef ARDUINO_ARCH_ESP32
+    delay(2000);
+#endif
+    Serial.println("\n=== ProtoTracer Boot ===");
+    Serial.printf("Free heap: %u\n", ESP.getFreeHeap());
 
     #ifndef PROJECT_VERIFY_HARDWARE
-    project.Initialize(); ///< Initializes the selected project.
-    delay(100); ///< Ensures stability after initialization.
+    Serial.println("[SETUP] Calling project.Initialize()...");
+    project.Initialize();
+    Serial.println("[SETUP] Initialize() done");
+    Serial.printf("Free heap after init: %u\n", ESP.getFreeHeap());
+    delay(100);
     #else
     while (true) {
         HardwareTest::ScanDevices(); ///< Scans for connected hardware devices.
@@ -70,11 +82,11 @@ void setup() {
  */
 void loop() {
     #ifndef PROJECT_VERIFY_HARDWARE
-    float ratio = (float)(millis() % 5000) / 5000.0f; ///< Calculates animation ratio based on time.
+    float ratio = (float)(millis() % 5000) / 5000.0f;
 
-    project.Animate(ratio); ///< Animates the project based on the current ratio.
-    project.Render(); ///< Renders the project's scene.
-    project.Display(); ///< Displays the rendered frame.
-    project.PrintStats(); ///< Outputs debugging and performance statistics.
+    project.Animate(ratio);
+    project.Render();
+    project.Display();
+    project.PrintStats();
     #endif
 }

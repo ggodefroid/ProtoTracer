@@ -555,19 +555,29 @@ ProtogenProject::ProtogenProject(CameraManager* cameras, Controller* controller,
 }
 
 void ProtogenProject::Initialize() {
+    Serial.println("[INIT] controller->Initialize()...");
     controller->Initialize();
+    Serial.println("[INIT] controller done");
 
+#ifdef ARDUINO_ARCH_ESP32
+    Serial.println("[INIT] Skipping boop sensor (no APDS9960 on ESP32 setup)");
+    Serial.println("[INIT] Skipping HUD (no SSD1306 on ESP32 setup)");
+    Serial.println("[INIT] Skipping fan controller on ESP32");
+#else
     boop.Initialize(5);
-
     hud.Initialize();
-
     fanController.Initialize();
+#endif
 
-    MicrophoneFourier::Initialize(microphonePin, 8000, 50.0f, 120.0f);//8KHz sample rate, 50dB min, 120dB max
-    
+    Serial.println("[INIT] MicrophoneFourier::Initialize()...");
+    MicrophoneFourier::Initialize(microphonePin, 8000, 50.0f, 120.0f);
+    Serial.println("[INIT] MicrophoneFourier done");
+
+    Serial.println("[INIT] Menu::Initialize()...");
     #ifdef NEOTRELLISMENU
-    Menu::Initialize(faceCount);//NeoTrellis
+    Menu::Initialize(faceCount);
     #else
-    Menu::Initialize(faceCount, buttonPin, 500);//7 is number of faces
+    Menu::Initialize(faceCount, buttonPin, 500);
     #endif
+    Serial.println("[INIT] Menu done");
 }

@@ -15,7 +15,11 @@
 #include "../../ExternalDevices/InputDevices/Menu/Menu.h"
 #include "../../ExternalDevices/Sensors/APDS9960.h"
 #include "../../ExternalDevices/Displays/SSD1306.h"
+#ifdef ARDUINO_ARCH_ESP32
+#include "../../ExternalDevices/Sensors/Microphone/MicrophoneFourier_ESP32.h"
+#else
 #include "../../ExternalDevices/Sensors/Microphone/MicrophoneFourier_MAX9814.h"
+#endif
 #include "../../ExternalDevices/OutputDevices/FanController.h"
 
 #include "../../Scene/Materials/Utils/MaterialAnimator.h"
